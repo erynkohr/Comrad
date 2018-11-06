@@ -31,6 +31,10 @@ class Dashboard extends Component {
           <h1>Past Shows</h1>
           <ShowTable rows={showRows} />
         </section>
+<div>
+  
+</div>
+
       </main>
     )
   }
