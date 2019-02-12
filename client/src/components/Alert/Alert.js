@@ -28,11 +28,7 @@ class Alert extends Component {
   };
 
   getDisplayClass(display) {
-    if (display) {
-      return 'open';
-    }
-
-    return 'close';
+    return display ? 'open' : 'close';
   }
 
   render() {
