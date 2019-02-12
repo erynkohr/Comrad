@@ -13,6 +13,10 @@ afterEach(() => {
 });
 
 describe('<Alert />', () => {
+  it('renders correctly', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('receives class of close when display state updated to close', () => {
     wrapper.setState({ display: false });
     expect(wrapper.find('.alert').hasClass('close')).toEqual(true);
