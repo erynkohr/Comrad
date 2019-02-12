@@ -18,6 +18,11 @@ describe('<Button />', () => {
   afterEach(() => {
     wrapper.unmount();
   });
+
+  it('renders correctly', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('receives class of button--primary with color props of primary', () => {
     wrapper.setProps({ color: 'primary' });
     expect(wrapper.find('.button').hasClass(BUTTON_CLASS.primary)).toEqual(
