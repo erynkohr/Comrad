@@ -15,6 +15,12 @@ class Dropdown extends Component {
     }));
   };
 
+  handleState = () => {
+    this.setState({
+      active: false,
+    });
+  };
+
   render() {
     const { props, renderButton, state } = this;
     const { children, className, dropdownPosition, type } = props;
@@ -48,6 +54,7 @@ class Dropdown extends Component {
           {button}
         </div>
         <div
+          onMouseLeave={this.handleState}
           className={`dropdown__list ${
             active ? 'active' : ''
           } ${dropdownListAdditionalClass}`}
