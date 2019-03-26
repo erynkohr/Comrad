@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table';
+import PropTypes from 'prop-types';
 import 'react-table/react-table.css';
 
 export const USER_PERMISSIONS = {
@@ -61,6 +62,11 @@ const columns = [
 ];
 
 class TableUsers extends Component {
+  static propTypes = {
+    docs: PropTypes.array,
+    history: PropTypes.object,
+  };
+
   render() {
     const { docs, loading } = this.props.user;
 
@@ -73,6 +79,16 @@ class TableUsers extends Component {
         loading={loading}
         noDataText="No Data Found"
         showPageSizeOptions={false}
+        getTdProps={(state, rowInfo, column, instance) => ({
+          onClick: e => {
+            const id =
+              rowInfo &&
+              rowInfo.row &&
+              rowInfo.row._original &&
+              rowInfo.row._original._id;
+            this.props.history.push(`/user/edit/${id}`);
+          },
+        })}
       />
     );
   }

@@ -30,7 +30,7 @@ class UserSearchPage extends Component {
             <div className="user-search__filter">
               <FilterUsers />
             </div>
-            <TableUsers />
+            <TableUsers history={this.props.history} />
           </CardBody>
         </Card>
       </div>
