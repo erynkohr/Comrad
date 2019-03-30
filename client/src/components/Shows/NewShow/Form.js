@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import moment from 'moment';
 
+import { requiredValidate } from '../../../utils/validation.js';
+
 import Repeat from './Repeat';
 
 import Button from '../../Button';
 import Card from '../../Card';
+import Input from '../../Input';
 import PickerDate from './PickerDate';
 
 import ModalClose from '../../Modal/Modal__Button_Close';
@@ -24,35 +27,42 @@ class NewShowForm extends Component {
             <form onSubmit={this.props.handleSubmit}>
               <div className="show__grid_container">
                 <div className="show__grid_span_3">
-                  <label htmlFor="title">Title</label>
-                  <Field name="title" component="input" type="text" />
-                </div>
-
-                <div>
-                  <label htmlFor="show_start_time_utc">From</label>
                   <Field
-                    name="show_start_time_utc"
-                    component="input"
-                    type="time"
-                    format={value => moment(value).format('HH:mm')}
-                    parse={value => moment(value, 'HH:mm')}
+                    component={Input}
+                    label="Title"
+                    name="title"
+                    type="text"
+                    autoFocus
+                    validate={requiredValidate}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="show_end_time_utc">To</label>
                   <Field
-                    name="show_end_time_utc"
-                    component="input"
+                    name="show_start_time_utc"
+                    component={Input}
+                    label="Start Time"
                     type="time"
                     format={value => moment(value).format('HH:mm')}
                     parse={value => moment(value, 'HH:mm')}
+                    validate={requiredValidate}
+                  />
+                </div>
+
+                <div>
+                  <Field
+                    name="show_end_time_utc"
+                    component={Input}
+                    label="End Time"
+                    type="time"
+                    format={value => moment(value).format('HH:mm')}
+                    parse={value => moment(value, 'HH:mm')}
+                    validate={requiredValidate}
                   />
                 </div>
 
                 <div className="show__grid_container show__grid_span_3">
                   <div className="show__date_picker_start">
-                    <label htmlFor="repeat_start_date">Start</label>
                     <Field name="repeat_start_date" component={PickerDate} />
                   </div>
 
@@ -67,18 +77,30 @@ class NewShowForm extends Component {
                 </div>
 
                 <div className="show__grid_span_3">
-                  <label htmlFor="Summary">Summary</label>
-                  <Field name="summary" component="input" type="text" />
+                  <Field
+                    name="summary"
+                    component={Input}
+                    label="Summary"
+                    type="textarea"
+                  />
                 </div>
 
                 <div className="show__grid_span_3">
-                  <label htmlFor="Description">Description</label>
-                  <Field name="description" component="input" type="text" />
+                  <Field
+                    name="description"
+                    component={Input}
+                    label="Description"
+                    type="textarea"
+                  />
                 </div>
 
                 <div>
-                  <label htmlFor="Producer">Producer</label>
-                  <Field name="producer" component="input" type="text" />
+                  <Field
+                    name="producer"
+                    label="Producer"
+                    component={Input}
+                    type="text"
+                  />
                 </div>
 
                 <div>

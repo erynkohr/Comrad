@@ -60,14 +60,25 @@ class Input extends Component {
           'form-group--inline': inline,
         })}
       >
-        <input
-          {...input}
-          {...other}
-          autoFocus={autoFocus}
-          className={classnames('input', touched && error && 'error')}
-          type={type}
-          onBlur={() => input.onBlur()}
-        />
+        {type == 'textarea' && (
+          <textarea
+            {...input}
+            {...other}
+            autoFocus={autoFocus}
+            className={classnames('input', touched && error && 'error')}
+            onBlur={() => input.onBlur()}
+          />
+        )}
+        {type != 'textarea' && (
+          <input
+            {...input}
+            {...other}
+            autoFocus={autoFocus}
+            className={classnames('input', touched && error && 'error')}
+            type={type}
+            onBlur={() => input.onBlur()}
+          />
+        )}
 
         {label && (
           <InputLabel {...meta} dirtyOverride={dirtyOverride}>
