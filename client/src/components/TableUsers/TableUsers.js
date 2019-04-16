@@ -4,33 +4,21 @@ import ReactTable from 'react-table';
 import PropTypes from 'prop-types';
 import 'react-table/react-table.css';
 
-export const USER_PERMISSIONS = {
-  admin: 'Admin',
-  full_access: 'Full Access',
-  show_producer: 'Show Producer',
-  underwriting: 'Underwriting',
-};
-
-export const USER_STATUS = {
-  active: {
-    class: 'active',
-    text: 'Active',
-  },
-  inactive: {
-    class: 'inactive',
-    text: 'Inactive',
-  },
-};
+import { userSearch } from '../../redux/user';
 
 const CellUserPermission = ({ value }) => (
-  <span className="table-users__permission">{USER_PERMISSIONS[value]}</span>
+  <span className="table-users__permission">{value}</span>
 );
 
-const CellUserStatus = ({ value }) => (
-  <span className={`table-users__status ${USER_STATUS[value].class}`}>
-    {USER_STATUS[value].text}
-  </span>
-);
+const CellUserStatus = ({ value }) => {
+  const status = value === 'Active';
+
+  return (
+    <span className={`table-users__status ${status ? 'active' : 'inactive'}`}>
+      {value}
+    </span>
+  );
+};
 
 const columns = [
   {
@@ -68,7 +56,8 @@ class TableUsers extends Component {
   };
 
   render() {
-    const { docs, loading } = this.props.user;
+    const { user } = this.props;
+    const { docs } = user;
 
     return (
       <ReactTable
@@ -76,7 +65,6 @@ class TableUsers extends Component {
         columns={columns}
         data={docs}
         defaultPageSize={15}
-        loading={loading}
         noDataText="No Data Found"
         showPageSizeOptions={false}
         getTdProps={(state, rowInfo, column, instance) => ({
@@ -94,9 +82,7 @@ class TableUsers extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const user = state.user;
-
+function mapStateToProps({ user }) {
   return {
     user,
   };
@@ -104,5 +90,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  null,
+  { userSearch },
 )(TableUsers);
