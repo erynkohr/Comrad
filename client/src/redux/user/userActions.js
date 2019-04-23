@@ -8,6 +8,7 @@ import {
   USER_FIND_ALL,
   USER_SEARCH,
   USER_CLEAR,
+  USER_UPDATE,
 } from './userTypes';
 
 import { userAPI } from '../../utils/api';
@@ -74,6 +75,19 @@ export const userAdd = (input, callback) => async dispatch => {
 
     dispatch({ type: USER_ADD, payload: response.data });
 
+    callback();
+  } catch (e) {
+    dispatch({
+      type: USER_ALERT,
+      payload: { type: 'error', text: e.response.data.errorMessage },
+    });
+  }
+};
+
+export const userUpdate = (input, callback) => async dispatch => {
+  try {
+    const response = await axios.put('/api/user', input);
+    dispatch({ type: USER_UPDATE, payload: response.data });
     callback();
   } catch (e) {
     dispatch({
